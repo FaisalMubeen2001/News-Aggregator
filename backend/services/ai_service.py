@@ -14,7 +14,7 @@ def summarize_article(title: str, content: str) -> str:
         Content: {content}
         """
         response = client.models.generate_content(
-            model="gemini-2.0-flash",
+            model="gemini-2.0-flash-lite",
             contents=prompt
         )
         return response.text.strip()
@@ -33,7 +33,7 @@ def analyze_sentiment(title: str, description: str) -> str:
         Description: {description}
         """
         response = client.models.generate_content(
-            model="gemini-2.0-flash",
+            model="gemini-2.0-flash-lite",
             contents=prompt
         )
         sentiment = response.text.strip().lower()

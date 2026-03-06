@@ -1,5 +1,6 @@
 from fastapi import FastAPI, Query
 from backend.services.news_service import fetch_articles, fetch_all_categories, CATEGORIES
+from backend.services.ai_service import enrich_article
 
 app = FastAPI(
     title="News Aggregator API",
@@ -16,14 +17,29 @@ def root():
 @app.get("/articles")
 def get_articles(
     category: str = Query(default="technology", enum=CATEGORIES),
-    page_size: int = Query(default=10, ge=1, le=50)
+    page_size: int = Query(default=5, ge=1, le=20),
+    enrich: bool = Query(default=False)
 ):
     articles = fetch_articles(category=category, page_size=page_size)
+
+    if enrich:
+        enriched = []
+        for article in articles:
+            result = enrich_article(
+                title=article.title,
+                content=article.content,
+                description=article.description
+            )
+            article.summary = result["summary"]
+            article.sentiment = result["sentiment"]
+            enriched.append(article)
+        articles = enriched
+
     return {"category": category, "total": len(articles), "articles": articles}
 
 
 @app.get("/articles/all")
-def get_all_articles(page_size: int = Query(default=5, ge=1, le=20)):
+def get_all_articles(page_size: int = Query(default=3, ge=1, le=10)):
     articles = fetch_all_categories(page_size=page_size)
     return {"total": len(articles), "articles": articles}
 
