@@ -1,11 +1,22 @@
 from fastapi import FastAPI, Query
+from contextlib import asynccontextmanager
 from backend.services.news_service import fetch_articles, fetch_all_categories, CATEGORIES
 from backend.services.ai_service import enrich_article
+from backend.scheduler.scheduler import start_scheduler, stop_scheduler
+
+
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    start_scheduler()
+    yield
+    stop_scheduler()
+
 
 app = FastAPI(
     title="News Aggregator API",
     version="1.0.0",
-    description="Fetches, summarizes and aggregates news articles"
+    description="Fetches, summarizes and aggregates news articles",
+    lifespan=lifespan
 )
 
 
