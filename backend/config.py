@@ -4,7 +4,7 @@ import os
 load_dotenv()
 
 NEWS_API_KEY = os.getenv("NEWS_API_KEY")
-GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
+GROQ_API_KEY = os.getenv("GROQ_API_KEY")
 SENDGRID_API_KEY = os.getenv("SENDGRID_API_KEY")
 SLACK_WEBHOOK_URL = os.getenv("SLACK_WEBHOOK_URL")
 

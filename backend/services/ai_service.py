@@ -1,23 +1,27 @@
-from google import genai
-from backend.config import GEMINI_API_KEY
+from groq import Groq
+from backend.config import GROQ_API_KEY
 
-client = genai.Client(api_key=GEMINI_API_KEY)
+client = Groq(api_key=GROQ_API_KEY)
+MODEL = "llama-3.3-70b-versatile"
 
 
 def summarize_article(title: str, content: str) -> str:
     try:
-        prompt = f"""
-        Summarize the following news article in 2-3 concise sentences.
-        Only return the summary, no extra text.
-
-        Title: {title}
-        Content: {content}
-        """
-        response = client.models.generate_content(
-            model="gemini-2.0-flash-lite",
-            contents=prompt
+        response = client.chat.completions.create(
+            model=MODEL,
+            messages=[
+                {
+                    "role": "system",
+                    "content": "You are a news summarizer. Summarize articles in 2-3 concise sentences. Return only the summary, no extra text."
+                },
+                {
+                    "role": "user",
+                    "content": f"Title: {title}\nContent: {content}"
+                }
+            ],
+            max_tokens=200
         )
-        return response.text.strip()
+        return response.choices[0].message.content.strip()
     except Exception as e:
         print(f"Summarization error: {e}")
         return None
@@ -25,18 +29,21 @@ def summarize_article(title: str, content: str) -> str:
 
 def analyze_sentiment(title: str, description: str) -> str:
     try:
-        prompt = f"""
-        Analyze the sentiment of the following news article.
-        Reply with only one word: Positive, Negative, or Neutral.
-
-        Title: {title}
-        Description: {description}
-        """
-        response = client.models.generate_content(
-            model="gemini-2.0-flash-lite",
-            contents=prompt
+        response = client.chat.completions.create(
+            model=MODEL,
+            messages=[
+                {
+                    "role": "system",
+                    "content": "You are a sentiment analyzer. Reply with only one word: Positive, Negative, or Neutral."
+                },
+                {
+                    "role": "user",
+                    "content": f"Title: {title}\nDescription: {description}"
+                }
+            ],
+            max_tokens=10
         )
-        sentiment = response.text.strip().lower()
+        sentiment = response.choices[0].message.content.strip().lower()
         if "positive" in sentiment:
             return "Positive"
         elif "negative" in sentiment:
