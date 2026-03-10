@@ -5,8 +5,10 @@ load_dotenv()
 
 NEWS_API_KEY = os.getenv("NEWS_API_KEY")
 GROQ_API_KEY = os.getenv("GROQ_API_KEY")
-SENDGRID_API_KEY = os.getenv("SENDGRID_API_KEY")
-SLACK_WEBHOOK_URL = os.getenv("SLACK_WEBHOOK_URL")
+GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
+EMAIL_SENDER = os.getenv("EMAIL_SENDER")
+EMAIL_PASSWORD = os.getenv("EMAIL_PASSWORD")
+EMAIL_RECEIVER = os.getenv("EMAIL_RECEIVER")
 
 # App settings
 APP_NAME = "News Aggregator"

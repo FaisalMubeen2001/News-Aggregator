@@ -54,6 +54,13 @@ def get_all_articles(page_size: int = Query(default=3, ge=1, le=10)):
     articles = fetch_all_categories(page_size=page_size)
     return {"total": len(articles), "articles": articles}
 
+@app.get("/test-email")
+def test_email():
+    from backend.services.news_service import fetch_articles
+    from backend.services.email_service import send_daily_digest
+    articles = fetch_articles(category="technology", page_size=3)
+    success = send_daily_digest(articles)
+    return {"success": success}
 
 @app.get("/categories")
 def get_categories():
