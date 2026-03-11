@@ -21,7 +21,7 @@ export default function App() {
   const fetchArticles = async (cat, enriched) => {
     setLoading(true);
     try {
-      const response = await axios.get(`/api/articles`, {
+      const response = await axios.get(`https://news-aggregator-4d5n.onrender.com/articles`, {
         params: { category: cat, page_size: 6, enrich: enriched }
       });
       setArticles(response.data.articles);
