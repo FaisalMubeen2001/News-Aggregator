@@ -1,0 +1,17 @@
+services:
+  - type: web
+    name: news-aggregator-backend
+    runtime: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn backend.main:app --host 0.0.0.0 --port $PORT
+    envVars:
+      - key: NEWS_API_KEY
+        sync: false
+      - key: GROQ_API_KEY
+        sync: false
+      - key: EMAIL_SENDER
+        sync: false
+      - key: EMAIL_PASSWORD
+        sync: false
+      - key: EMAIL_RECEIVER
+        sync: false
