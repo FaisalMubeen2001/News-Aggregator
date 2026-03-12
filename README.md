@@ -2,6 +2,9 @@
 
 An AI-powered news aggregator that fetches, summarizes, and analyzes sentiment of news articles across multiple categories.
 
+🌐 **Live Demo:** [newsaggregatorproj.netlify.app](https://newsaggregatorproj.netlify.app)
+🔗 **Backend API:** [news-aggregator-4d5n.onrender.com](https://news-aggregator-4d5n.onrender.com)
+
 ## 🚀 Features
 
 - 🌍 Fetches real-time news from NewsAPI across 6 categories
@@ -15,22 +18,23 @@ An AI-powered news aggregator that fetches, summarizes, and analyzes sentiment o
 
 ## 🛠️ Tech Stack
 
-| Layer       | Technology |
-|-------------|---------------------------|
-| Backend     | Python, FastAPI |
-| AI          | Groq API (LLaMA 3.3) |
-| News Source | NewsAPI |
-| Frontend    | React, Tailwind CSS, Vite |
-| Scheduler   | APScheduler |
-| Email       | Gmail SMTP |
-| Testing     | Pytest |
-| DevOps      | Docker, GitHub Actions |
+| Layer       | Technology                          |
+|-------------|-------------------------------------|
+| Backend     | Python, FastAPI                     |
+| AI          | Groq API (LLaMA 3.3)                |
+| News Source | NewsAPI                             |
+| Frontend    | React, Tailwind CSS, Vite           |
+| Scheduler   | APScheduler                         |
+| Email       | Gmail SMTP                          |
+| Testing     | Pytest                              |
+| DevOps      | Docker, GitHub Actions              |
+| Deployment  | Render (Backend), Netlify (Frontend)|
 
 ## ⚙️ Setup
 
 ### 1. Clone the repository
 ```bash
-git clone https://github.com/yourusername/News-Aggregator.git
+git clone https://github.com/FaisalMubeen2001/News-Aggregator.git
 cd News-Aggregator
 ```
 
@@ -51,9 +55,8 @@ Create a `.env` file in the root directory:
 ```env
 NEWS_API_KEY=your_newsapi_key
 GROQ_API_KEY=your_groq_key
-GEMINI_API_KEY=your_gemini_key
 EMAIL_SENDER=your_gmail
-EMAIL_PASSWORD=your_app_password
+EMAIL_PASSWORD=your_gmail_app_password
 EMAIL_RECEIVER=your_email
 ```
 
@@ -85,6 +88,7 @@ News-Aggregator/
 ├── backend/
 │   ├── api/
 │   ├── models/
+│   │   └── article.py
 │   ├── services/
 │   │   ├── news_service.py
 │   │   ├── ai_service.py
@@ -113,3 +117,9 @@ News-Aggregator/
 ├── requirements.txt
 └── README.md
 ```
+
+## 🌐 Deployment
+
+- **Frontend** deployed on [Netlify](https://netlify.com)
+- **Backend** deployed on [Render](https://render.com)
+- **CI/CD** powered by GitHub Actions — tests run automatically on every push
